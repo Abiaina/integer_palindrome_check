@@ -1,19 +1,27 @@
-# Returns true if the input positive integer number forms a palindrome. Returns false otherwise.
 def is_palindrome(number)
   if number == nil
     return false
+  elsif (0..9).cover?(number)
+    return true
   end
 
-  palindrome = false
+  range_by_ten = 10
 
-  # this should be multiples of 10.
-  x = 1
+  while (number / range_by_ten) > 0
+    range_by_ten = (10 * range_by_ten)
+  end
 
-  while number % x != 0
-    if number % x == number / x
-      palindrome == true
+  left_reflection = (range_by_ten / 10)
+  right_reflection = 10
+
+  until left_reflection == right_reflection
+    if !((number / left_reflection) == (number % right_reflection))
+      return false
+    else
+      left_reflection = (left_reflection / 10)
+      right_reflection = (right_reflection * 10)
     end
-    x *= 10
   end
-  return palindrome
+
+  return true
 end
